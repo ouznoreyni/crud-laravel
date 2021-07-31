@@ -1,7 +1,9 @@
 @extends('layouts.base')
 @section('content')
+<h1>Edit a row</h1>
+
 @if ($row)
-<form action="{{  route('rows.update', $row) }}" method="post" class="col-6 form-inline mt-2">
+<form action="{{  route('rows.update', $row) }}" method="post" class="col-6 form-inline mt-3">
   @csrf
   <label class="sr-only" for="title">title</label>
   <input name="title" type="text" class="form-control col-7" id="title" placeholder="Add Row" value="{{$row->title}}">

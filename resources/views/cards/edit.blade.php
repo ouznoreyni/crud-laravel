@@ -1,5 +1,8 @@
 @extends('layouts.base')
 @section('content')
+
+<h1>Edit a Card</h1>
+
 @if ($card)
 <form action="{{  route('cards.update', $card) }}" method="post" class="col-6 form-inline mt-2">
   @csrf

@@ -1,11 +1,13 @@
 @extends('layouts.base')
 @section('content')
 
+<h1>All the rows</h1>
+
 <div class="row m-5">
   @forelse($rows as $row)
   
   <div class="card m-2" style="width: 18rem; max-height: 500px;">
-    <div class="card-header">
+    <div class="card-header text-dark">
        <div class="row">
         {{$row->title}}
        </div>
@@ -26,9 +28,7 @@
       <li class="list-group-item">
         <h4> {{$card->content}}</h4>
         <div class="mt-2" >
-          <a class="btn btn-sm btn-outline-info text-dark" href="{{ route('cards.edit', $card) }}">
-              edit
-          </a>
+          <a class="btn btn-sm btn-outline-info text-dark" href="{{ route('cards.edit', $card) }}"> edit </a>
           <form  class="d-inline-block" action="{{ route('cards.destroy', $card) }}" method="post">
               @csrf
               @method('DELETE')
@@ -72,4 +72,4 @@
 </div>
 </div>
 
-@ensection
+@endsection
