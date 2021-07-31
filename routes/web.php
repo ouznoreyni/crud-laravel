@@ -20,4 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('/rows', RowController::class);
-Route::resource('/cards', CardController::class);
+
+Route::get('/cards', [CardController::class, 'index'])->name('cards');
+Route::get('/cards/{card}', [CardController::class, 'show'])->name('cards.show');
+Route::post('/cards/{row}', [CardController::class, 'store'])->name('cards.store');
+Route::delete('/cards/{card}', [CardController::class, 'destroy'])->name('cards.destroy');
+Route::get('/cards/{card}/edit', [CardController::class, 'edit'])->name('cards.edit');
+Route::put('/cards/{card}/update', [CardController::class, 'update'])->name('cards.update');

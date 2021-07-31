@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RowResource;
 use App\Models\Row;
 use Illuminate\Http\Request;
 
@@ -16,9 +17,16 @@ class RowController extends Controller
     {
         //
 
-        $rows = Row::latest()->paginate(10);
-
-        return view('rows.index',  compact('rows'));
+        // $rows = Row::all();
+        // $rows=Row::with(['cards']);
+        // $ressource= RowResource::collection($rows->paginate(10));
+        $rows=Row::with(['cards'])->get();
+        // $rows=Row::whereHas('cards', function ($params)
+        // {
+        //     $params->where();
+        // })->get();
+    // dd($rows);
+        return view('rows.index',  ['rows'=>$rows]);
     }
 
     /**
@@ -72,7 +80,7 @@ class RowController extends Controller
     public function edit(Row $row)
     {
         //
-        return view('rows.edit');
+        return view('rows.edit', compact('row'));
     }
 
     /**
@@ -85,6 +93,14 @@ class RowController extends Controller
     public function update(Request $request, Row $row)
     {
         //
+        $this->validate($request, [
+            'title' => 'required'
+        ]);
+        //
+        $row->title=$request->input('title');
+        // flash('Successfully created new row.');
+        $row->save();
+        return redirect()->route('rows.index');
     }
 
     /**

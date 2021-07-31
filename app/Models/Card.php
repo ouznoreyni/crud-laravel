@@ -12,11 +12,15 @@ class Card extends Model
     use HasFactory;
     public $table = 'card';
 
-    protected $fillable = ['content'];
+     // Primary Key
+     public $primaryKey = 'id';
+
+    protected $fillable = ['content', 'row_id'];
 
     public function row()
     {
         return $this->belongsTo(Row::class);
     }
+
 
 }

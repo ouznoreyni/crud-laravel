@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Row;
 use Illuminate\Http\Request;
 
 class CardController extends Controller
@@ -38,9 +39,25 @@ class CardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Row $row)
     {
         //
+        $this->validate($request, [
+            'content' => 'required'
+        ]);
+        //
+        // $row =new Row(["title"=>$request->input('title')]);
+        // flash('Successfully created new row.');
+        // $row->save();
+        // return redirect()->route('rows.index');
+
+        // dd($row);
+        $card = new Card();
+        $card->content = $request->input('content');
+        $card->row_id=$row->id;
+        $card->save();
+        return redirect()->route('rows.index');
+
 
     }
 
@@ -66,7 +83,7 @@ class CardController extends Controller
     public function edit(Card $card)
     {
         //
-        return view('cards.edit');
+        return view('cards.edit', compact('card'));
 
     }
 
@@ -79,7 +96,14 @@ class CardController extends Controller
      */
     public function update(Request $request, Card $card)
     {
+        $this->validate($request, [
+            'content' => 'required'
+        ]);
         //
+        $card->content=$request->input('content');
+        // flash('Successfully created new car$card.');
+        $card->save();
+        return redirect()->route('rows.index');
     }
 
     /**
@@ -90,6 +114,7 @@ class CardController extends Controller
      */
     public function destroy(Card $card)
     {
-        //
+        $card->delete();
+        return back();
     }
 }

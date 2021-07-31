@@ -11,5 +11,10 @@ class Row extends Model
     public $table = 'row';
 
     protected $fillable = ['title'];
-
+    
+    
+    public function cards()
+    {
+        return $this->hasMany(Card::class);
+    }
 }
