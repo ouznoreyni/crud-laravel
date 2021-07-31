@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\RowController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('/rows', RowController::class);
+Route::resource('/cards', CardController::class);
